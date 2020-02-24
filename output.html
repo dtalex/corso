@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script>
+        const json = [{"codVolo":"EC02827","etd":"2020-02-21 13:00","std":"2020-02-21 13:00","international":false,"estimated":123,"actual":123},{"codVolo":"FR02964","etd":"2020-02-21 16:25","std":"2020-02-21 16:25","international":false,"estimated":200,"actual":0},{"codVolo":"FR05517","etd":"2020-02-21 19:10","std":"2020-02-21 19:10","international":false,"estimated":123,"actual":122},{"codVolo":"EC02833","etd":"2020-02-21 17:36","std":"2020-02-21 17:36","international":false,"estimated":222,"actual":0},{"codVolo":"FR05513","etd":"2020-02-21 06:25","std":"2020-02-21 06:25","international":true,"estimated":10,"actual":10},{"codVolo":"AZ00786","etd":"2020-02-21 14:59","std":"2020-02-21 13:59","international":false,"estimated":34,"actual":34},{"codVolo":"EC02785","etd":"2020-02-21 13:00","std":"2020-02-21 13:36","international":false,"estimated":123,"actual":122},{"codVolo":"BV01540","etd":"2020-02-21 09:36","std":"2020-02-21 09:36","international":true,"estimated":200,"actual":200},{"codVolo":"NO00862","etd":"2020-02-21 21:36","std":"2020-02-21 21:36","international":false,"estimated":60,"actual":60},{"codVolo":"PS00312","etd":"2020-02-22 00:25","std":"2020-02-22 00:25","international":true,"estimated":123,"actual":123}];
+
+        $(document).ready(function () {
+            let body = document.getElementById("myTable")
+            for (let i = 0; i < json.length; i++) {
+                let obj = json[i];
+                let row = body.insertRow(i + 1)
+                let cellCodVolo = document.createElement('th')
+                cellCodVolo.setAttribute('scope', 'row')
+                cellCodVolo.innerText = obj.codVolo;
+                row.insertAdjacentElement('afterBegin', cellCodVolo);
+
+                row.insertCell().innerText = obj.std;
+
+                let etdCell=  row.insertCell();
+                if (obj.etd > obj.std)
+                    etdCell.classList.add('warning')
+                etdCell.innerText = obj.etd;
+
+
+                row.insertCell().innerText = obj.estimated;
+                row.insertCell().innerText = obj.actual
+                row.insertCell().innerText = obj.international;
+            }
+        });
+
+
+    </script>
+    <style>
+        .warning {
+            background-color: chocolate;
+        }
+    </style>
+</head>
+<body>
+<h1>Monitor Voli</h1>
+<table class="table table-dark" id="myTable">
+    <thead>
+        <tr>
+            <th scope="col">codvolo</th>
+            <th scope="col">std</th>
+            <th scope="col">etd</th>
+            <th scope="col">expected</th>
+            <th scope="col">actual</th>
+            <th scope="col">international</th>
+        </tr>
+    </thead>
+    <tbody id="myBody">
+    </tbody>
+</table>
+</body>
+</html>

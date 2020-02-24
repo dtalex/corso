@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script>
+        const json = #JSON#;
+
+        $(document).ready(function () {
+            let body = document.getElementById("myTable")
+            for (let i = 0; i < json.length; i++) {
+                let obj = json[i];
+                let row = body.insertRow(i + 1)
+                let cellCodVolo = document.createElement('th')
+                cellCodVolo.setAttribute('scope', 'row')
+                cellCodVolo.innerText = obj.codVolo;
+                row.insertAdjacentElement('afterBegin', cellCodVolo);
+
+                row.insertCell().innerText = obj.std;
+
+                let etdCell=  row.insertCell();
+                if (obj.etd > obj.std)
+                    etdCell.classList.add('warning')
+                etdCell.innerText = obj.etd;
+
+
+                row.insertCell().innerText = obj.estimated;
+                row.insertCell().innerText = obj.actual
+                row.insertCell().innerText = obj.international;
+            }
+        });
+
+
+    </script>
+    <style>
+        .warning {
+            background-color: chocolate;
+        }
+    </style>
+</head>
+<body>
+<h1>Monitor Voli</h1>
+<table class="table table-dark" id="myTable">
+    <thead>
+        <tr>
+            <th scope="col">codvolo</th>
+            <th scope="col">std</th>
+            <th scope="col">etd</th>
+            <th scope="col">expected</th>
+            <th scope="col">actual</th>
+            <th scope="col">international</th>
+        </tr>
+    </thead>
+    <tbody id="myBody">
+    </tbody>
+</table>
+</body>
+</html>
